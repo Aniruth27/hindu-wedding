@@ -139,7 +139,7 @@ body {
     font-family: var(--font-body);
     color: var(--clr-dark-text);
     background-color: var(--clr-gold-bg);
-    background-image: linear-gradient(rgba(249, 246, 240, 0.80), rgba(249, 246, 240, 0.80)), url("https://img.freepik.com/premium-psd/floral-border-composition-delicate-blossoms-light-background_1066938-1302.jpg?semt=ais_hybrid&w=740&q=80");
+    background-image: linear-gradient(rgba(249, 246, 240, 0.80), rgba(249, 246, 240, 0.80)), url("/bg-mobile.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

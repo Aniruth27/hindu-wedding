@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.js';
 
 // --- Lotus SVG Component ---
@@ -416,13 +416,11 @@ function App() {
             {/* Premium Preloader */}
             {!isEntered && (
                 <div id="preloader" className="preloader-container" onClick={guestName && isLoaded ? handleEnterInvitation : undefined} style={{ cursor: guestName && isLoaded ? 'pointer' : 'default' }}>
-                    {/* Ambient background video */}
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="preloader-bg-video"
+                    {/* Ambient background image */}
+                    <img
+                        src="/bg-1.png"
+                        alt="Background"
+                        className="preloader-bg-image"
                         style={{
                             position: 'absolute',
                             top: 0,
@@ -432,9 +430,7 @@ function App() {
                             objectFit: 'cover',
                             zIndex: 1
                         }}
-                    >
-                        <source src="/bg-video.mp4" type="video/mp4" />
-                    </video>
+                    />
                     {/* Dark overlay on top of video */}
                     <div style={{
                         position: 'absolute',
@@ -929,8 +925,8 @@ function App() {
                             {[
                                 { src: "https://i.pinimg.com/736x/28/f5/81/28f5813b36cd8a5e9c482bfc22ae8791.jpg", caption: "Arjun" },
                                 { src: "https://i.pinimg.com/736x/87/18/52/87185251f7584038db95c16c7d9d362d.jpg", caption: "Priya" },
-                                { src: "https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?w=600&q=80", caption: "Rituals" },
-                                { src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80", caption: "Celebrations" }
+                                { src: "/rituals.jpg", caption: "Rituals" },
+                                { src: "/celebration.jpg", caption: "Celebrations" }
                             ].map((photo, i) => (
                                 <div key={i} className="gallery-item" style={{
                                     position: 'relative',
