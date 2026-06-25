@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.js';
 
 // --- Lotus SVG Component ---
@@ -501,14 +501,14 @@ function App() {
                             </div>
                         ) : (
                             <>
-                                <h1 className="preloader-title shimmer-gold" style={{ fontFamily: 'var(--font-heading)', fontSize: '2.5rem', margin: '10px 0' }}>Arjun &amp; Priya</h1>
-                                <p className="preloader-subtitle" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-gold-light)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.9rem' }}>The Royal Union</p>
+                                <h1 className="preloader-title" style={{ fontFamily: 'var(--font-heading)', fontSize: '3.2rem', color: 'var(--clr-maroon-deep)', margin: '15px 0 5px 0' }}>Arjun &amp; Priya</h1>
+                                <p className="preloader-subtitle" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-gold-dark)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '1rem', marginBottom: '35px' }}>The Royal Union</p>
 
-                                <div className="preloader-progress-box" style={{ margin: '25px 0' }}>
-                                    <div className="preloader-progress-bar" style={{ height: '3px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-                                        <div id="progress-fill" className="progress-fill" style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, var(--clr-gold-dark) 0%, var(--clr-gold-light) 50%, var(--clr-gold-dark) 100%)', transition: 'width 0.2s ease-out' }}></div>
+                                <div className="preloader-progress-box" style={{ margin: '30px 0' }}>
+                                    <div className="preloader-progress-bar" style={{ height: '4px', background: 'rgba(48, 12, 17, 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                                        <div id="progress-fill" className="progress-fill" style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, var(--clr-gold-dark) 0%, var(--clr-gold-primary) 50%, var(--clr-gold-dark) 100%)', transition: 'width 0.2s ease-out' }}></div>
                                     </div>
-                                    <span id="progress-text" className="progress-text" style={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.6)', marginTop: '8px', display: 'block' }}>{progress}% Loaded</span>
+                                    <span id="progress-text" className="progress-text" style={{ fontSize: '0.85rem', color: 'var(--clr-maroon-accent)', marginTop: '12px', display: 'block', fontWeight: '500' }}>{progress}% Loaded</span>
                                 </div>
 
                                 <button
@@ -516,12 +516,12 @@ function App() {
                                     className={`enter-btn btn-gold ${!isLoaded ? 'disabled' : ''}`}
                                     disabled={!isLoaded}
                                     onClick={handleEnterInvitation}
-                                    style={{ padding: '12px 35px', borderRadius: '30px', fontWeight: '500' }}
+                                    style={{ padding: '14px 40px', borderRadius: '30px', fontWeight: '600', fontSize: '1rem', letterSpacing: '2px', color: 'var(--clr-maroon-deep)' }}
                                 >
                                     <span>Enter Invitation</span>
-                                    <i className="fa-solid fa-chevron-right btn-arrow" style={{ marginLeft: '8px' }}></i>
+                                    <i className="fa-solid fa-chevron-right btn-arrow" style={{ marginLeft: '10px' }}></i>
                                 </button>
-                                <p id="enter-hint" className="enter-hint" style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginTop: '12px' }}>
+                                <p id="enter-hint" className="enter-hint" style={{ fontSize: '0.85rem', color: 'var(--clr-maroon-accent)', marginTop: '16px', fontStyle: 'italic' }}>
                                     {!isLoaded ? "Please wait while the invitation loads..." : "Invitation loaded. Tap to unveil."}
                                 </p>
                             </>
@@ -531,7 +531,7 @@ function App() {
             )}
 
             {/* Ambient Audio Player */}
-            <audio id="bg-music" loop ref={audioRef}>
+            <audio id="bg-music" ref={audioRef}>
                 <source src="/bg-music.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
             </audio>
@@ -549,7 +549,7 @@ function App() {
                         width: '50px',
                         height: '50px',
                         borderRadius: '50%',
-                        background: 'var(--clr-emerald-deep)',
+                        background: 'var(--clr-maroon-deep)',
                         border: '2px solid var(--clr-gold-primary)',
                         color: 'var(--clr-gold-light)',
                         zIndex: 100,
@@ -599,10 +599,10 @@ function App() {
                 </section>
 
                 {/* Sanskrit Quote Card Section */}
-                <section id="quran-verse-section" className="quran-verse-section reveal-section" style={{ padding: '80px 0 40px 0' }}>
+                <section id="mantra-verse-section" className="mantra-verse-section reveal-section" style={{ padding: '80px 0 40px 0' }}>
                     <div className="container">
-                        <div className="quran-card" style={{ background: 'var(--clr-emerald-medium)', border: '2px solid var(--clr-gold-primary)', boxShadow: 'var(--shadow-gold)' }}>
-                            <div className="quran-content">
+                        <div className="mantra-card" style={{ background: 'var(--clr-maroon-medium)', border: '2px solid var(--clr-gold-primary)', boxShadow: 'var(--shadow-gold)' }}>
+                            <div className="mantra-content">
                                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                                     <svg width="240" height="70" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15 50 Q75 10 150 50 T285 50" stroke="url(#goldGradient)" strokeWidth="1.5" strokeLinecap="round" />
@@ -616,14 +616,14 @@ function App() {
                                         </defs>
                                     </svg>
                                 </div>
-                                <div className="quran-arabic" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--clr-gold-primary)', letterSpacing: '0', marginBottom: '20px' }}>
+                                <div className="mantra-sanskrit" style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--clr-gold-primary)', letterSpacing: '0', marginBottom: '20px' }}>
                                     मंगलम भगवान विष्णु, मंगलम गरुड़ध्वज।<br />
                                     मंगलम पुण्डरीकाक्ष, मंगलाय तनो हरि॥
                                 </div>
-                                <p className="quran-translation" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', fontStyle: 'normal', color: 'var(--clr-light-text)' }}>
+                                <p className="mantra-translation" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', fontStyle: 'normal', color: 'var(--clr-light-text)' }}>
                                     "All auspiciousness to Lord Vishnu, all auspiciousness to the one who has Garuda as His flag. All auspiciousness to the lotus-eyed Lord, and auspiciousness to Hari."
                                 </p>
-                                <div className="quran-ref" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-gold-light)' }}>Mangala Mantra</div>
+                                <div className="mantra-ref" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-gold-light)' }}>Mangala Mantra</div>
                             </div>
                         </div>
                     </div>
@@ -649,11 +649,11 @@ function App() {
                                 <div className="temple-arch-frame" style={{ border: '2px solid var(--clr-gold-primary)', padding: '6px', borderRadius: '170px 170px 0 0', background: 'var(--clr-gold-bg)' }}>
                                     <div className="couple-image-wrapper" style={{ borderRadius: '164px 164px 0 0', overflow: 'hidden' }}>
                                         <img src="https://i.pinimg.com/736x/28/f5/81/28f5813b36cd8a5e9c482bfc22ae8791.jpg" alt="Arjun" className="couple-photo" />
-                                        <div className="couple-role-tag" style={{ background: 'var(--clr-emerald-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Groom</div>
+                                        <div className="couple-role-tag" style={{ background: 'var(--clr-maroon-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Groom</div>
                                     </div>
                                 </div>
                                 <div className="couple-details">
-                                    <h3 className="couple-name" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Arjun</h3>
+                                    <h3 className="couple-name" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Arjun</h3>
                                     <p className="couple-bio" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>
                                         An elegant, warm-hearted software architect who values family, traditions, and growth. Devoted to creating a beautiful, peaceful life, Arjun found his perfect partner, best friend, and absolute blessing in Priya.
                                     </p>
@@ -666,7 +666,7 @@ function App() {
 
                             {/* Love Knot Center Divider */}
                             <div className="love-knot-center">
-                                <div className="love-knot-circle" style={{ background: 'var(--clr-emerald-deep)', border: '2px solid var(--clr-gold-primary)' }}>
+                                <div className="love-knot-circle" style={{ background: 'var(--clr-maroon-deep)', border: '2px solid var(--clr-gold-primary)' }}>
                                     <Lotus className="center-knot-icon" style={{ color: 'var(--clr-gold-light)' }} />
                                 </div>
                             </div>
@@ -676,11 +676,11 @@ function App() {
                                 <div className="temple-arch-frame" style={{ border: '2px solid var(--clr-gold-primary)', padding: '6px', borderRadius: '170px 170px 0 0', background: 'var(--clr-gold-bg)' }}>
                                     <div className="couple-image-wrapper" style={{ borderRadius: '164px 164px 0 0', overflow: 'hidden' }}>
                                         <img src="https://i.pinimg.com/736x/87/18/52/87185251f7584038db95c16c7d9d362d.jpg" alt="Priya" className="couple-photo" />
-                                        <div className="couple-role-tag" style={{ background: 'var(--clr-emerald-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Bride</div>
+                                        <div className="couple-role-tag" style={{ background: 'var(--clr-maroon-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Bride</div>
                                     </div>
                                 </div>
                                 <div className="couple-details">
-                                    <h3 className="couple-name" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Priya</h3>
+                                    <h3 className="couple-name" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Priya</h3>
                                     <p className="couple-bio" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>
                                         A talented graphic designer with a gentle spirit and vibrant smile. Her creativity, kindness, and grace illuminate every path she treads. She is thrilled to begin this lifelong journey of love and togetherness with Arjun.
                                     </p>
@@ -698,7 +698,7 @@ function App() {
                                 <div style={{ fontSize: '1.6rem', color: 'var(--clr-gold-dark)', marginBottom: '10px' }}>
                                     <i className="fa-solid fa-spa"></i>
                                 </div>
-                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>How We Met</h4>
+                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>How We Met</h4>
                                 <p style={{ fontSize: '0.92rem', color: 'var(--clr-dark-text)', lineHeight: '1.65', fontFamily: 'var(--font-body)' }}>
                                     Some journeys are written by destiny. What began as a friendship blossomed into a beautiful bond of love, trust, and companionship.
                                 </p>
@@ -707,7 +707,7 @@ function App() {
                                 <div style={{ fontSize: '1.6rem', color: 'var(--clr-gold-dark)', marginBottom: '10px' }}>
                                     <i className="fa-solid fa-fire"></i>
                                 </div>
-                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>The Proposal</h4>
+                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>The Proposal</h4>
                                 <p style={{ fontSize: '0.92rem', color: 'var(--clr-dark-text)', lineHeight: '1.65', fontFamily: 'var(--font-body)' }}>
                                     Surrounded by family blessings and cherished moments, we chose forever.
                                 </p>
@@ -716,7 +716,7 @@ function App() {
                                 <div style={{ fontSize: '1.6rem', color: 'var(--clr-gold-dark)', marginBottom: '10px' }}>
                                     <i className="fa-solid fa-bell"></i>
                                 </div>
-                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>Today</h4>
+                                <h4 className="story-narrative-title" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)', fontSize: '1.35rem', marginBottom: '12px' }}>Today</h4>
                                 <p style={{ fontSize: '0.92rem', color: 'var(--clr-dark-text)', lineHeight: '1.65', fontFamily: 'var(--font-body)' }}>
                                     With joyful hearts, we invite you to celebrate the beginning of our new chapter.
                                 </p>
@@ -791,8 +791,8 @@ function App() {
                                 <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)' }}>
                                     <i className="fa-solid fa-bowl-food" style={{ color: 'var(--clr-gold-dark)' }}></i>
                                 </div>
-                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Haldi Ceremony</h3>
-                                <div className="halal-badge event-tag-mehndi" style={{ background: '#FFC107', color: '#3B000C', fontWeight: '600' }}>Auspicious Turmeric Ritual</div>
+                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Haldi Ceremony</h3>
+                                <div className="muhurtham-badge event-tag-mehndi" style={{ background: '#FFC107', color: '#3B000C', fontWeight: '600' }}>Auspicious Turmeric Ritual</div>
 
                                 <div className="event-time-details">
                                     <p className="event-date"><i className="fa-regular fa-calendar" style={{ color: 'var(--clr-gold-dark)' }}></i> Sunday, February 14, 2027</p>
@@ -819,8 +819,8 @@ function App() {
                                 <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)' }}>
                                     <i className="fa-solid fa-hand-sparkles" style={{ color: 'var(--clr-gold-dark)' }}></i>
                                 </div>
-                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Mehendi &amp; Sangeet Night</h3>
-                                <div className="halal-badge event-tag-mehndi" style={{ background: '#4CAF50', color: '#FFF', fontWeight: '600' }}>Henna, Dance &amp; Festivities</div>
+                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Mehendi &amp; Sangeet Night</h3>
+                                <div className="muhurtham-badge event-tag-mehndi" style={{ background: '#4CAF50', color: '#FFF', fontWeight: '600' }}>Henna, Dance &amp; Festivities</div>
 
                                 <div className="event-time-details">
                                     <p className="event-date"><i className="fa-regular fa-calendar" style={{ color: 'var(--clr-gold-dark)' }}></i> Sunday, February 14, 2027</p>
@@ -847,8 +847,8 @@ function App() {
                                 <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)' }}>
                                     <i className="fa-solid fa-bell" style={{ color: 'var(--clr-gold-dark)' }}></i>
                                 </div>
-                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Wedding Muhurtham</h3>
-                                <div className="halal-badge event-tag-nikah" style={{ background: 'var(--clr-gold-primary)', color: '#3B000C', fontWeight: '600' }}>Wedding Rituals</div>
+                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Wedding Muhurtham</h3>
+                                <div className="muhurtham-badge event-tag-muhurtham" style={{ background: 'var(--clr-gold-primary)', color: '#3B000C', fontWeight: '600' }}>Wedding Rituals</div>
 
                                 <div className="event-time-details">
                                     <p className="event-date"><i className="fa-regular fa-calendar" style={{ color: 'var(--clr-gold-dark)' }}></i> Monday, February 15, 2027</p>
@@ -875,8 +875,8 @@ function App() {
                                 <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)' }}>
                                     <i className="fa-solid fa-spa" style={{ color: 'var(--clr-gold-dark)' }}></i>
                                 </div>
-                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-emerald-deep)' }}>Grand Reception</h3>
-                                <div className="halal-badge event-tag-walima" style={{ background: 'var(--clr-emerald-accent)', color: '#FFF', fontWeight: '600' }}>Dinner &amp; Blessings</div>
+                                <h3 className="event-type" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-maroon-deep)' }}>Grand Reception</h3>
+                                <div className="muhurtham-badge event-tag-reception" style={{ background: 'var(--clr-maroon-accent)', color: '#FFF', fontWeight: '600' }}>Dinner &amp; Blessings</div>
 
                                 <div className="event-time-details">
                                     <p className="event-date"><i className="fa-regular fa-calendar" style={{ color: 'var(--clr-gold-dark)' }}></i> Monday, February 15, 2027</p>
@@ -994,7 +994,7 @@ function App() {
                             <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)', margin: '0 auto 15px auto', width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontSize: '1.6rem', color: 'var(--clr-gold-dark)' }}>
                                 <i className="fa-solid fa-place-of-worship"></i>
                             </div>
-                            <h3 className="venue-name" style={{ fontSize: '2.1rem', color: 'var(--clr-emerald-deep)', fontFamily: 'var(--font-serif)', margin: '15px 0' }}>Meenakshi Convention Hall</h3>
+                            <h3 className="venue-name" style={{ fontSize: '2.1rem', color: 'var(--clr-maroon-deep)', fontFamily: 'var(--font-serif)', margin: '15px 0' }}>Meenakshi Convention Hall</h3>
                             <p className="venue-address" style={{ fontSize: '1.1rem', color: 'var(--clr-dark-text)', marginBottom: '20px', fontFamily: 'var(--font-body)' }}>Madurai, Tamil Nadu, India</p>
 
                             <div className="venue-divider" style={{ margin: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1030,7 +1030,7 @@ function App() {
                 {/* Blessing & Hosts Section */}
                 <section id="blessing-section" className="blessing-section reveal-section temple-pattern-bg-light" style={{ padding: '80px 0' }}>
                     <div className="container small-container">
-                        <div className="blessing-card" style={{ border: '2px solid var(--clr-gold-primary)', background: 'var(--clr-emerald-medium)', color: 'var(--clr-light-text)', padding: '50px 30px', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-gold)', textAlign: 'center' }}>
+                        <div className="blessing-card" style={{ border: '2px solid var(--clr-gold-primary)', background: 'var(--clr-maroon-medium)', color: 'var(--clr-light-text)', padding: '50px 30px', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-gold)', textAlign: 'center' }}>
                             <div style={{ marginBottom: '20px' }}>
                                 <Lotus style={{ fontSize: '2.5rem', color: 'var(--clr-gold-primary)' }} />
                             </div>
@@ -1061,7 +1061,7 @@ function App() {
                 </section>
 
                 {/* Footer */}
-                <footer className="app-footer" style={{ borderTop: '2px solid var(--clr-gold-primary)', background: 'var(--clr-emerald-deep)', position: 'relative', overflow: 'hidden' }}>
+                <footer className="app-footer" style={{ borderTop: '2px solid var(--clr-gold-primary)', background: 'var(--clr-maroon-deep)', position: 'relative', overflow: 'hidden' }}>
                     <div className="footer-bg-glow"></div>
                     <div className="container" style={{ position: 'relative', zIndex: 1, padding: '50px 0 25px 0' }}>
                         <div className="footer-logo" style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', color: 'var(--clr-gold-primary)', letterSpacing: '2px' }}>A &bull; P</div>

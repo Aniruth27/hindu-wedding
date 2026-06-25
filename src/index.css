@@ -11,13 +11,13 @@
     --clr-gold-dark: hsl(38, 70%, 35%);        /* #9B6F16 - Antique Burnished Gold */
     --clr-gold-bg: hsl(40, 45%, 97%);          /* #F9F6F0 - Warm Ivory Cream */
     
-    --clr-emerald-deep: hsl(160, 52%, 7%);     /* #051A10 - Sacred Royal Emerald */
-    --clr-emerald-medium: hsl(160, 35%, 15%);  /* #173527 - Rich Satin Emerald */
-    --clr-emerald-accent: hsl(160, 42%, 24%);  /* #23583E - Muted Olive Emerald */
+    --clr-maroon-deep: hsl(350, 60%, 12%);     /* Deep Temple Maroon */
+    --clr-maroon-medium: hsl(350, 45%, 20%);  /* Rich Kanjeevaram Red */
+    --clr-maroon-accent: hsl(350, 50%, 30%);  /* Ruby Crimson */
     
-    --clr-dark-text: hsl(160, 35%, 11%);       /* #0C1E15 - Deep Slate Forest */
-    --clr-light-text: hsl(40, 30%, 96%);       /* #FAF8F5 - Soft Lustrous Pearl */
-    --clr-muted-text: hsl(160, 12%, 46%);      /* #678073 - Muted Charcoal Green */
+    --clr-dark-text: hsl(350, 40%, 10%);       /* Deep Slate Maroon */
+    --clr-light-text: hsl(40, 30%, 96%);       /* Soft Lustrous Pearl */
+    --clr-muted-text: hsl(350, 15%, 45%);      /* Muted Rose Charcoal */
     --clr-white: hsl(0, 0%, 100%);
     --clr-black: hsl(0, 0%, 0%);
 
@@ -42,40 +42,40 @@
 }
 
 /* --- Islamic Design System Additions --- */
-.islamic-pattern-bg {
+.mandala-pattern-bg {
     position: relative;
 }
-.islamic-pattern-bg::before {
+.mandala-pattern-bg::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none' stroke='rgba(223, 172, 42, 0.05)' stroke-width='0.75'%3E%3Cpath d='M40 0 L52 28 L80 40 L52 52 L40 80 L28 52 L0 40 L28 28 Z'/%3E%3Cpath d='M40 12 L48 32 L68 40 L48 48 L40 68 L32 48 L12 40 L32 32 Z'/%3E%3Ccircle cx='40' cy='40' r='4'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none' stroke='rgba(223, 172, 42, 0.05)' stroke-width='0.75'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='30' stroke-dasharray='4 4'/%3E%3Cpath d='M40 10 A30 30 0 0 1 70 40 A30 30 0 0 1 40 70 A30 30 0 0 1 10 40 A30 30 0 0 1 40 10 Z' stroke-width='0.5'/%3E%3C/svg%3E");
     background-repeat: repeat;
     pointer-events: none;
     z-index: 0;
 }
 
-.islamic-pattern-bg-light {
+.mandala-pattern-bg-light {
     position: relative;
 }
-.islamic-pattern-bg-light::before {
+.mandala-pattern-bg-light::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none' stroke='rgba(223, 172, 42, 0.03)' stroke-width='0.75'%3E%3Cpath d='M40 0 L52 28 L80 40 L52 52 L40 80 L28 52 L0 40 L28 28 Z'/%3E%3Cpath d='M40 12 L48 32 L68 40 L48 48 L40 68 L32 48 L12 40 L32 32 Z'/%3E%3Ccircle cx='40' cy='40' r='4'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80' fill='none' stroke='rgba(223, 172, 42, 0.03)' stroke-width='0.75'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='30' stroke-dasharray='4 4'/%3E%3Cpath d='M40 10 A30 30 0 0 1 70 40 A30 30 0 0 1 40 70 A30 30 0 0 1 10 40 A30 30 0 0 1 40 10 Z' stroke-width='0.5'/%3E%3C/svg%3E");
     background-repeat: repeat;
     pointer-events: none;
     z-index: 0;
 }
 
 /* Islamic Arch Frame for Images */
-.islamic-arch-frame {
+.temple-arch-frame {
     border-radius: 180px 180px var(--border-radius-md) var(--border-radius-md);
     border: 2px solid var(--clr-gold-primary);
     padding: 10px;
@@ -87,7 +87,7 @@
     width: 100%;
 }
 
-.islamic-arch-frame img {
+.temple-arch-frame img {
     border-radius: 170px 170px var(--border-radius-sm) var(--border-radius-sm);
     display: block;
     width: 100%;
@@ -132,7 +132,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    background-color: var(--clr-emerald-deep);
+    background-color: var(--clr-maroon-deep);
 }
 
 body {
@@ -153,7 +153,7 @@ body {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--clr-emerald-deep);
+    background: var(--clr-maroon-deep);
 }
 ::-webkit-scrollbar-thumb {
     background: var(--clr-gold-primary);
@@ -225,7 +225,7 @@ body {
     width: 90%;
     max-width: 480px;
     padding: 50px 40px;
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 248, 235, 0.95);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 2px solid var(--clr-gold-primary);
@@ -241,7 +241,7 @@ body {
     left: 6px;
     right: 6px;
     bottom: 6px;
-    border: 1px dashed rgba(223, 172, 42, 0.4);
+    border: 1px solid rgba(223, 172, 42, 0.5);
     border-radius: calc(var(--border-radius-lg) - 8px);
     pointer-events: none;
     z-index: 1;
@@ -302,7 +302,7 @@ body {
     font-family: var(--font-script);
     font-size: 3.8rem;
     font-weight: 400;
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     margin-bottom: 8px;
     letter-spacing: 1px;
 }
@@ -371,7 +371,7 @@ body {
 .btn-gold {
     background: linear-gradient(135deg, var(--clr-gold-dark) 0%, var(--clr-gold-primary) 50%, var(--clr-gold-light) 100%);
     background-size: 200% auto;
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     box-shadow: var(--shadow-gold);
 }
 
@@ -446,7 +446,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--clr-emerald-deep);
+    background: var(--clr-maroon-deep);
     border: 2px solid var(--clr-gold-primary);
     box-shadow: var(--shadow-deep);
     overflow: hidden;
@@ -489,7 +489,7 @@ body {
     width: 12px;
     height: 12px;
     background-color: #6b7a73;
-    border: 2px solid var(--clr-emerald-deep);
+    border: 2px solid var(--clr-maroon-deep);
     border-radius: 50%;
     transition: var(--transition-fast);
 }
@@ -504,7 +504,7 @@ body {
    ========================================================================== */
 .hero-scroll-section {
     position: relative;
-    background-color: var(--clr-emerald-deep);
+    background-color: var(--clr-maroon-deep);
 }
 
 .canvas-sticky-wrapper {
@@ -846,7 +846,7 @@ body {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background: var(--clr-emerald-deep);
+    background: var(--clr-maroon-deep);
     color: var(--clr-gold-light);
     font-size: 0.75rem;
     font-weight: 500;
@@ -887,7 +887,7 @@ body {
     height: 38px;
     border-radius: 50%;
     background: var(--clr-gold-bg);
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     margin: 0 6px;
     font-size: 0.9rem;
     transition: var(--transition-fast);
@@ -895,7 +895,7 @@ body {
 }
 
 .couple-social a:hover {
-    background: var(--clr-emerald-deep);
+    background: var(--clr-maroon-deep);
     color: var(--clr-gold-primary);
     border-color: rgba(229, 186, 68, 0.3);
 }
@@ -912,7 +912,7 @@ body {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: var(--clr-emerald-deep);
+    background: var(--clr-maroon-deep);
     border: 2px solid var(--clr-gold-primary);
     box-shadow: var(--shadow-gold);
     display: flex;
@@ -931,7 +931,7 @@ body {
    COUNTDOWN TIMER SECTION
    ========================================================================== */
 .countdown-section {
-    background: linear-gradient(135deg, var(--clr-emerald-medium) 0%, var(--clr-emerald-deep) 100%);
+    background: linear-gradient(135deg, var(--clr-maroon-medium) 0%, var(--clr-maroon-deep) 100%);
     padding: 100px 24px;
     text-align: center;
     color: var(--clr-light-text);
@@ -1071,7 +1071,7 @@ body {
     width: 70px;
     height: 70px;
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-    background: linear-gradient(135deg, var(--clr-emerald-deep), var(--clr-emerald-medium));
+    background: linear-gradient(135deg, var(--clr-maroon-deep), var(--clr-maroon-medium));
     color: var(--clr-gold-light);
     display: flex;
     justify-content: center;
@@ -1141,7 +1141,7 @@ body {
     font-family: var(--font-heading);
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     margin-bottom: 4px;
 }
 
@@ -1489,7 +1489,7 @@ body {
    ========================================================================== */
 .app-footer {
     position: relative;
-    background-color: var(--clr-emerald-deep);
+    background-color: var(--clr-maroon-deep);
     color: var(--clr-light-text);
     padding: 80px 24px;
     text-align: center;
@@ -1724,14 +1724,73 @@ body {
     .guest-dear {
         font-size: 1.3rem !important;
     }
+
+    /* Mobile view optimizations */
+    .hero-scroll-section {
+        height: 200vh !important;
+    }
+
+    .scroll-height-spacer {
+        height: 120vh !important;
+    }
+
+    .section-title {
+        font-size: 2rem !important;
+    }
+
+    .mantra-sanskrit {
+        font-size: 1.4rem !important;
+    }
+
+    .story-narrative-title {
+        font-size: 1.2rem !important;
+    }
+
+    .countdown-heading {
+        font-size: 2rem !important;
+    }
+
+    .event-type {
+        font-size: 1.5rem !important;
+    }
+
+    .glass-card, .event-card, .story-narrative-card {
+        padding: 20px !important;
+        border-radius: 12px !important;
+        background: rgba(255, 248, 231, 0.9) !important;
+    }
+
+    .event-icon-box {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .muhurtham-badge {
+        font-size: 0.65rem !important;
+        padding: 4px 10px !important;
+    }
+
+    .event-date, .event-time {
+        font-size: 0.85rem !important;
+    }
+
+    .couple-bio {
+        font-size: 0.85rem !important;
+    }
+
+    .mantra-translation {
+        font-size: 0.95rem !important;
+    }
 }
 
 /* ==========================================================================
    ISLAMIC THEMED COMPONENT STYLES
    ========================================================================== */
-.quran-card {
+.mantra-card {
     position: relative;
-    background: radial-gradient(circle at center, var(--clr-emerald-medium) 0%, var(--clr-emerald-deep) 100%);
+    background: radial-gradient(circle at center, var(--clr-maroon-medium) 0%, var(--clr-maroon-deep) 100%);
     border: 2px solid var(--clr-gold-primary);
     border-radius: var(--border-radius-lg);
     padding: 55px 35px;
@@ -1743,7 +1802,7 @@ body {
     overflow: hidden;
     z-index: 1;
 }
-.quran-card::before {
+.mantra-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -1752,11 +1811,11 @@ body {
     pointer-events: none;
     z-index: 0;
 }
-.quran-content {
+.mantra-content {
     position: relative;
     z-index: 2;
 }
-.quran-arabic {
+.mantra-sanskrit {
     font-size: 2rem;
     font-weight: 500;
     color: var(--clr-gold-light);
@@ -1765,7 +1824,7 @@ body {
     font-family: 'Cormorant Garamond', Georgia, serif;
     direction: rtl;
 }
-.quran-translation {
+.mantra-translation {
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 300;
@@ -1777,14 +1836,14 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-.quran-ref {
+.mantra-ref {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     color: var(--clr-gold-primary);
     font-weight: 600;
 }
-.bismillah-text {
+.om-text {
     font-size: 2.2rem;
     color: var(--clr-gold-primary);
     margin-bottom: 20px;
@@ -1796,7 +1855,7 @@ body {
 .text-muted {
     color: var(--clr-muted-text) !important;
 }
-.halal-badge {
+.muhurtham-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1817,12 +1876,12 @@ body {
     color: #F8F5EE;
     border: 1px solid #DFAC2A;
 }
-.event-tag-nikah {
-    background: var(--clr-emerald-deep);
+.event-tag-muhurtham {
+    background: var(--clr-maroon-deep);
     color: var(--clr-gold-light);
     border: 1px solid var(--clr-gold-primary);
 }
-.event-tag-walima {
+.event-tag-reception {
     background: #1e293b;
     color: var(--clr-gold-light);
     border: 1px solid var(--clr-gold-primary);
@@ -1897,7 +1956,7 @@ body {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     line-height: 1.7;
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     margin-bottom: 35px;
     font-weight: 300;
 }
@@ -1968,7 +2027,7 @@ body {
     font-family: var(--font-heading);
     font-size: 3.8rem;
     font-weight: 400;
-    color: var(--clr-emerald-deep);
+    color: var(--clr-maroon-deep);
     margin-bottom: 12px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     letter-spacing: 1px;
@@ -1990,3 +2049,30 @@ body {
     animation: heartbeat 2.5s infinite ease-in-out;
 }
 
+/* ==========================================================================
+   GALLERY ANIMATIONS
+   ========================================================================== */
+.gallery-item {
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(223, 172, 42, 0.25) !important;
+    border-color: var(--clr-gold-light) !important;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.08);
+}
+
+.gallery-item:hover .gallery-overlay {
+    background: linear-gradient(to top, rgba(5, 26, 16, 0.95) 0%, rgba(5, 26, 16, 0) 100%) !important;
+    padding-bottom: 28px !important;
+}
+
+.gallery-item:hover .gallery-caption {
+    color: var(--clr-gold-primary) !important;
+    transform: scale(1.05);
+    transition: all 0.4s ease;
+}
