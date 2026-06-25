@@ -261,7 +261,7 @@ function App() {
         const instance = new ScrollyVideo({
             src: videoSrc || '/scroll-video1.mp4',
             scrollyVideoContainer: videoContainerRef.current,
-            cover: true,
+            cover: window.innerWidth > 768,
             sticky: false,
             full: true,
             trackScroll: false,
@@ -583,15 +583,7 @@ function App() {
                         {/* ScrollyVideo Container — driven by scroll position */}
                         <div
                             ref={videoContainerRef}
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                zIndex: 0,
-                                pointerEvents: 'none'
-                            }}
+                            className="scrolly-video-container"
                         />
                     </div>
                     {/* Spacer to stretch scroll sequence */}
@@ -785,7 +777,7 @@ function App() {
                             </div>
                         </div>
 
-                        <div className="events-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '30px', marginTop: '40px', alignItems: 'stretch' }}>
+                        <div className="events-grid" style={{ marginTop: '40px', alignItems: 'stretch' }}>
                             {/* Haldi Ceremony */}
                             <div className="event-card glass-card card-hover-effect" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                 <div className="event-icon-box" style={{ background: 'var(--clr-gold-bg)', border: '1px solid var(--clr-gold-primary)' }}>
@@ -942,7 +934,7 @@ function App() {
                                     <div className="gallery-card" style={{
                                         position: 'relative',
                                         width: '100%',
-                                        paddingTop: '65%',
+                                        paddingTop: '100%',
                                         overflow: 'hidden',
                                         borderRadius: 'calc(var(--border-radius-md) - 8px)'
                                     }}>
@@ -961,7 +953,7 @@ function App() {
                                             left: 0,
                                             width: '100%',
                                             height: '100%',
-                                            background: 'linear-gradient(to top, rgba(90, 0, 17, 0.9) 0%, rgba(90, 0, 17, 0) 100%)',
+                                            background: 'linear-gradient(to top, rgba(90, 0, 17, 0.9) 0%, rgba(90, 0, 17, 0) 50%)',
                                             display: 'flex',
                                             alignItems: 'flex-end',
                                             justifyContent: 'center',

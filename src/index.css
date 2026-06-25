@@ -219,6 +219,16 @@ body {
     pointer-events: none;
 }
 
+.scrolly-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
 .preloader-glass {
     position: relative;
     z-index: 10;
@@ -1028,7 +1038,7 @@ body {
 
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
     margin-top: 30px;
 }
@@ -1038,7 +1048,7 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 200px 200px 20px 20px !important;
+    border-radius: 1000px 1000px 20px 20px !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(212, 175, 55, 0.1);
     padding: 80px 40px 50px 40px !important;
     text-align: center;
@@ -1055,7 +1065,7 @@ body {
     right: 10px;
     bottom: 10px;
     border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 190px 190px 10px 10px;
+    border-radius: 1000px 1000px 10px 10px;
     pointer-events: none;
     z-index: 1;
 }
@@ -1642,6 +1652,10 @@ body {
     body {
         background-image: linear-gradient(rgba(249, 246, 240, 0.80), rgba(249, 246, 240, 0.80)), url("/bg-mobile.png") !important;
     }
+    
+    .scrolly-video-container {
+        transform: scale(0.9);
+    }
 
     .reveal-section {
         padding: 60px 0;
@@ -1756,7 +1770,7 @@ body {
 
     .glass-card, .event-card, .story-narrative-card {
         padding: 20px !important;
-        border-radius: 12px !important;
+        border-radius: 1000px 1000px 12px 12px !important;
         background: rgba(255, 248, 231, 0.9) !important;
     }
 
