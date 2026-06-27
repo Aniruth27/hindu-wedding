@@ -145,12 +145,54 @@ function Deepam() {
     );
 }
 
+// --- Butterfly SVG Component ---
+function Butterfly({ size = 40, color = '#C8860A', opacity = 0.85, flipped = false, style = {} }) {
+    return (
+        <svg
+            viewBox="0 0 100 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+                width: size,
+                height: size * 0.6,
+                transform: flipped ? 'scaleX(-1)' : 'none',
+                filter: `drop-shadow(0 2px 6px ${color}55)`,
+                ...style
+            }}
+        >
+            {/* Left upper wing */}
+            <path d="M50 30 C40 10 10 5 5 20 C0 35 20 45 50 30Z"
+                fill={color} opacity={opacity} />
+            {/* Left lower wing */}
+            <path d="M50 30 C35 32 15 48 18 55 C21 62 40 55 50 30Z"
+                fill={color} opacity={opacity * 0.75} />
+            {/* Right upper wing */}
+            <path d="M50 30 C60 10 90 5 95 20 C100 35 80 45 50 30Z"
+                fill={color} opacity={opacity} />
+            {/* Right lower wing */}
+            <path d="M50 30 C65 32 85 48 82 55 C79 62 60 55 50 30Z"
+                fill={color} opacity={opacity * 0.75} />
+            {/* Body */}
+            <ellipse cx="50" cy="30" rx="2.5" ry="10" fill="#3B000C" opacity="0.9" />
+            {/* Antennae */}
+            <path d="M49 22 C45 12 42 8 40 5" stroke="#3B000C" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
+            <path d="M51 22 C55 12 58 8 60 5" stroke="#3B000C" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
+            <circle cx="40" cy="5" r="1.5" fill="#3B000C" opacity="0.7" />
+            <circle cx="60" cy="5" r="1.5" fill="#3B000C" opacity="0.7" />
+            {/* Wing patterns */}
+            <circle cx="30" cy="20" r="4" fill="rgba(255,248,220,0.3)" />
+            <circle cx="70" cy="20" r="4" fill="rgba(255,248,220,0.3)" />
+        </svg>
+    );
+}
+
 function App() {
     // --- React States ---
     const [progress, setProgress] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isEntered, setIsEntered] = useState(false);
     const [particles, setParticles] = useState([]);
+    const [butterflies, setButterflies] = useState([]);
 
     // Audio State
     const [isPlaying, setIsPlaying] = useState(false);
@@ -198,6 +240,26 @@ function App() {
             });
         }
         setParticles(particleList);
+
+        // --- Butterfly Generation ---
+        const butterflyColors = ['#C8860A', '#D4AF37', '#B5560B', '#D97B2E'];
+        const butterflyList = [];
+        for (let i = 0; i < 4; i++) {
+            butterflyList.push({
+                id: i,
+                size: Math.random() * 18 + 18,
+                left: 15 + i * 22,
+                top: 20 + (i % 2) * 40,
+                delay: i * 5 + Math.random() * 3,
+                duration: 18 + Math.random() * 8,
+                color: butterflyColors[i],
+                opacity: 0.3 + Math.random() * 0.15,
+                flipped: i % 2 === 0,
+                driftX: (Math.random() - 0.5) * 80,
+                pathIndex: i % 3,
+            });
+        }
+        setButterflies(butterflyList);
     }, []);
 
     // --- Extract Guest Name from URL ---
@@ -261,7 +323,7 @@ function App() {
         const instance = new ScrollyVideo({
             src: videoSrc || '/scroll-video1.mp4',
             scrollyVideoContainer: videoContainerRef.current,
-            cover: window.innerWidth > 768,
+            cover: true,
             sticky: false,
             full: true,
             trackScroll: false,
@@ -270,35 +332,69 @@ function App() {
 
         scrollyVideoInstanceRef.current = instance;
 
-        const handleScroll = () => {
+        let ticking = false;
+
+        const performScrollCalculations = () => {
             const heroSection = document.getElementById('hero-scroll-section');
-            if (!heroSection) return;
+            if (heroSection) {
+                const scrollTop = window.scrollY;
+                const totalScrollable = heroSection.scrollHeight - window.innerHeight;
 
-            const scrollTop = window.scrollY;
-            const totalScrollable = heroSection.scrollHeight - window.innerHeight;
+                if (totalScrollable > 0) {
+                    const scrollFraction = Math.min(1, Math.max(0, scrollTop / totalScrollable));
 
-            if (totalScrollable > 0) {
-                const scrollFraction = Math.min(1, Math.max(0, scrollTop / totalScrollable));
+                    if (scrollyVideoInstanceRef.current) {
+                        scrollyVideoInstanceRef.current.setVideoPercentage(scrollFraction);
+                    }
 
-                // Manually set video percentage in scrolly-video
-                if (scrollyVideoInstanceRef.current) {
-                    scrollyVideoInstanceRef.current.setVideoPercentage(scrollFraction);
+                    if (scrollFraction >= 0.03 && scrollFraction <= 0.26) {
+                        setActiveStory(1);
+                    } else if (scrollFraction >= 0.35 && scrollFraction <= 0.64) {
+                        setActiveStory(2);
+                    } else if (scrollFraction >= 0.73 && scrollFraction <= 0.96) {
+                        setActiveStory(3);
+                    } else {
+                        setActiveStory(0);
+                    }
                 }
+            }
 
-                // Story Overlays triggers based on scroll progress
-                if (scrollFraction >= 0.03 && scrollFraction <= 0.26) {
-                    setActiveStory(1);
-                } else if (scrollFraction >= 0.35 && scrollFraction <= 0.64) {
-                    setActiveStory(2);
-                } else if (scrollFraction >= 0.73 && scrollFraction <= 0.96) {
-                    setActiveStory(3);
-                } else {
-                    setActiveStory(0);
+            // Global parallax for all parallax-layer elements across the page
+            document.querySelectorAll('.parallax-layer').forEach(el => {
+                const speed = parseFloat(el.getAttribute('data-speed')) || 0.15;
+                const rect = el.getBoundingClientRect();
+                const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+                const adjustedSpeed = window.innerWidth <= 768 ? speed * 0.3 : speed;
+                el.style.transform = `translate3d(0, ${centerOffset * adjustedSpeed}px, 0)`;
+            });
+
+            // 3D depth tilt on sections based on scroll position
+            document.querySelectorAll('.depth-section').forEach(el => {
+                if (window.innerWidth <= 768) {
+                    el.style.transform = 'none';
+                    return;
                 }
+                const rect = el.getBoundingClientRect();
+                const viewportCenter = window.innerHeight / 2;
+                const elCenter = rect.top + rect.height / 2;
+                const offset = (elCenter - viewportCenter) / viewportCenter;
+                const rotateX = offset * 2.5;
+                const translateZ = Math.abs(offset) * -15;
+                el.style.transform = `perspective(1200px) rotateX(${rotateX}deg) translateZ(${translateZ}px)`;
+            });
+        };
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    performScrollCalculations();
+                    ticking = false;
+                });
+                ticking = true;
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -371,6 +467,35 @@ function App() {
         });
 
         return () => observer.disconnect();
+    }, [isEntered]);
+
+    // --- 3D Tilt Effect on Couple Cards ---
+    useEffect(() => {
+        if (!isEntered) return;
+        const cards = document.querySelectorAll('.couple-card');
+
+        const handleMouseMove = (e) => {
+            const card = e.currentTarget;
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 6}deg) translateZ(10px)`;
+        };
+        const handleMouseLeave = (e) => {
+            e.currentTarget.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0px)';
+        };
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', handleMouseMove);
+            card.addEventListener('mouseleave', handleMouseLeave);
+        });
+
+        return () => {
+            cards.forEach(card => {
+                card.removeEventListener('mousemove', handleMouseMove);
+                card.removeEventListener('mouseleave', handleMouseLeave);
+            });
+        };
     }, [isEntered]);
 
     // --- Enter Button Click Triggers ---
@@ -463,9 +588,9 @@ function App() {
                         ))}
                     </div>
 
-                    <div className="preloader-glass" style={{ zIndex: 4, position: 'relative', maxWidth: '500px', width: '90%' }}>
-                        <div style={{ marginBottom: '15px' }}>
-                            <GaneshaIcon className="shimmer-gold" style={{ color: 'var(--clr-gold-primary)' }} />
+                    <div className="preloader-glass" style={{ zIndex: 4, position: 'relative', maxWidth: '520px', width: '92%' }}>
+                        <div style={{ marginBottom: '8px' }}>
+                            <GaneshaIcon className="shimmer-gold" style={{ color: 'var(--clr-gold-primary)', width: '72px', height: '72px' }} />
                         </div>
 
                         {guestName ? (
@@ -501,14 +626,16 @@ function App() {
                             </div>
                         ) : (
                             <>
-                                <h1 className="preloader-title" style={{ fontFamily: 'var(--font-heading)', fontSize: '3.2rem', color: 'var(--clr-maroon-deep)', margin: '15px 0 5px 0' }}>Arjun &amp; Priya</h1>
-                                <p className="preloader-subtitle" style={{ fontFamily: 'var(--font-serif)', color: 'var(--clr-gold-dark)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '1rem', marginBottom: '35px' }}>The Royal Union</p>
+                                <h1 className="preloader-title" style={{ fontFamily: 'var(--font-script)', color: 'var(--clr-maroon-deep)', margin: '10px 0 2px', fontWeight: 'normal', lineHeight: 1.2 }}>Arjun &amp; Priya</h1>
+                                <p className="preloader-subtitle" style={{ fontFamily: 'var(--font-body)', color: 'var(--clr-gold-dark)', letterSpacing: '5px', textTransform: 'uppercase', margin: '0' }}>The Royal Union</p>
 
-                                <div className="preloader-progress-box" style={{ margin: '30px 0' }}>
-                                    <div className="preloader-progress-bar" style={{ height: '4px', background: 'rgba(48, 12, 17, 0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                                <div className="preloader-divider">✦</div>
+
+                                <div className="preloader-progress-box" style={{ margin: '0 0 18px' }}>
+                                    <div className="preloader-progress-bar" style={{ height: '3px', background: 'rgba(90, 0, 17, 0.08)', borderRadius: '2px', overflow: 'hidden' }}>
                                         <div id="progress-fill" className="progress-fill" style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, var(--clr-gold-dark) 0%, var(--clr-gold-primary) 50%, var(--clr-gold-dark) 100%)', transition: 'width 0.2s ease-out' }}></div>
                                     </div>
-                                    <span id="progress-text" className="progress-text" style={{ fontSize: '0.85rem', color: 'var(--clr-maroon-accent)', marginTop: '12px', display: 'block', fontWeight: '500' }}>{progress}% Loaded</span>
+                                    <span id="progress-text" className="progress-text" style={{ fontSize: '0.75rem', color: 'var(--clr-maroon-accent)', marginTop: '8px', display: 'block', fontWeight: '500', letterSpacing: '1px' }}>{progress}% Loaded</span>
                                 </div>
 
                                 <button
@@ -516,12 +643,12 @@ function App() {
                                     className={`enter-btn btn-gold ${!isLoaded ? 'disabled' : ''}`}
                                     disabled={!isLoaded}
                                     onClick={handleEnterInvitation}
-                                    style={{ padding: '14px 40px', borderRadius: '30px', fontWeight: '600', fontSize: '1rem', letterSpacing: '2px', color: 'var(--clr-maroon-deep)' }}
+                                    style={{ padding: '14px 40px', borderRadius: '30px', fontWeight: '600', fontSize: '0.85rem', letterSpacing: '2.5px', color: 'var(--clr-maroon-deep)', width: '100%' }}
                                 >
                                     <span>Enter Invitation</span>
                                     <i className="fa-solid fa-chevron-right btn-arrow" style={{ marginLeft: '10px' }}></i>
                                 </button>
-                                <p id="enter-hint" className="enter-hint" style={{ fontSize: '0.85rem', color: 'var(--clr-maroon-accent)', marginTop: '16px', fontStyle: 'italic' }}>
+                                <p id="enter-hint" className="enter-hint" style={{ fontSize: '0.78rem', color: 'var(--clr-maroon-accent)', marginTop: '12px', fontStyle: 'italic', opacity: 0.8 }}>
                                     {!isLoaded ? "Please wait while the invitation loads..." : "Invitation loaded. Tap to unveil."}
                                 </p>
                             </>
@@ -568,6 +695,32 @@ function App() {
             {/* Main Content */}
             <div id="main-content" className={`app-container ${!isEntered ? 'hidden' : ''}`}>
 
+                {/* 🦋 Global Butterfly Layer */}
+                <div className="butterfly-layer" aria-hidden="true">
+                    {butterflies.map(b => (
+                        <div
+                            key={b.id}
+                            className={`butterfly-wrapper butterfly-path-${b.pathIndex}`}
+                            style={{
+                                left: `${b.left}%`,
+                                top: `${b.top}%`,
+                                animationDuration: `${b.duration}s`,
+                                animationDelay: `${b.delay}s`,
+                                '--drift-x': `${b.driftX}px`,
+                            }}
+                        >
+                            <div className="butterfly-flap" style={{ animationDuration: `${0.35 + Math.random() * 0.25}s` }}>
+                                <Butterfly
+                                    size={b.size}
+                                    color={b.color}
+                                    opacity={b.opacity}
+                                    flipped={b.flipped}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
                 {/* ScrollyVideo Hero Section */}
                 <section id="hero-scroll-section" className="hero-scroll-section" style={{ height: '350vh', position: 'relative' }}>
                     <div className="canvas-sticky-wrapper" style={{
@@ -575,7 +728,6 @@ function App() {
                         top: 0,
                         height: '100vh',
                         overflow: 'hidden',
-                        background: '#0a0004',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -591,9 +743,9 @@ function App() {
                 </section>
 
                 {/* Sanskrit Quote Card Section */}
-                <section id="mantra-verse-section" className="mantra-verse-section reveal-section" style={{ padding: '80px 0 40px 0' }}>
+                <section id="mantra-verse-section" className="mantra-verse-section reveal-section depth-section" style={{ padding: '80px 0 40px 0' }}>
                     <div className="container">
-                        <div className="mantra-card" style={{ background: 'var(--clr-maroon-medium)', border: '2px solid var(--clr-gold-primary)', boxShadow: 'var(--shadow-gold)' }}>
+                        <div className="mantra-card" style={{ background: '#7D1427', border: '2px solid var(--clr-gold-primary)', boxShadow: 'var(--shadow-gold)' }}>
                             <div className="mantra-content">
                                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                                     <svg width="240" height="70" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -622,7 +774,50 @@ function App() {
                 </section>
 
                 {/* The Couple Section */}
-                <section id="love-story-section" className="love-story-section reveal-section temple-pattern-bg-light" style={{ padding: '80px 0' }}>
+                <section id="love-story-section" className="love-story-section reveal-section depth-section temple-pattern-bg-light" style={{ padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
+                    <div className="parallax-layer" data-speed="0.2" style={{ position: 'absolute', top: '-10%', left: '-5%', opacity: 0.1, zIndex: 0 }}>
+                        <Lotus style={{ fontSize: '30rem', color: 'var(--clr-gold-primary)' }} />
+                    </div>
+                    <div className="parallax-layer" data-speed="-0.15" style={{ position: 'absolute', bottom: '10%', right: '-5%', opacity: 0.1, zIndex: 0 }}>
+                        <GaneshaIcon style={{ width: '400px', height: '400px', color: 'var(--clr-gold-primary)' }} />
+                    </div>
+                    {/* Floating Petals */}
+                    <div className="section-petals" aria-hidden="true">
+                        {[
+                            { left: '8%',  top: '70%',  size: 10, color: '#D50000', delay: 0,   dur: 9  },
+                            { left: '20%', top: '80%',  size: 8,  color: '#FFB300', delay: 2,   dur: 11 },
+                            { left: '35%', top: '90%',  size: 12, color: '#D50000', delay: 1,   dur: 8  },
+                            { left: '55%', top: '75%',  size: 9,  color: '#FFB300', delay: 3.5, dur: 12 },
+                            { left: '72%', top: '85%',  size: 11, color: '#D50000', delay: 0.8, dur: 10 },
+                            { left: '88%', top: '60%',  size: 8,  color: '#FFB300', delay: 2.5, dur: 9  },
+                            { left: '15%', top: '55%',  size: 7,  color: '#C8860A', delay: 4,   dur: 13 },
+                            { left: '65%', top: '50%',  size: 10, color: '#C8860A', delay: 1.5, dur: 10 },
+                        ].map((p, i) => (
+                            <div key={i} className="petal" style={{
+                                left: p.left, top: p.top,
+                                width: p.size, height: p.size,
+                                background: p.color,
+                                opacity: 0.6,
+                                animationDuration: `${p.dur}s`,
+                                animationDelay: `${p.delay}s`,
+                            }} />
+                        ))}
+                    </div>
+                    {/* Sparkle dots */}
+                    {[
+                        { left: '5%',  top: '20%', size: 6, delay: 0   },
+                        { left: '92%', top: '15%', size: 5, delay: 1.2 },
+                        { left: '50%', top: '5%',  size: 7, delay: 0.6 },
+                        { left: '18%', top: '45%', size: 4, delay: 2   },
+                        { left: '80%', top: '60%', size: 6, delay: 1.8 },
+                    ].map((s, i) => (
+                        <div key={i} className="sparkle-dot" style={{
+                            left: s.left, top: s.top,
+                            width: s.size, height: s.size,
+                            background: 'var(--clr-gold-primary)',
+                            animationDelay: `${s.delay}s`,
+                        }} />
+                    ))}
                     <div className="section-bg-ornament"></div>
                     <div className="container">
                         <div className="section-header">
@@ -640,7 +835,7 @@ function App() {
                             <div className="couple-card groom-card" id="groom-card">
                                 <div className="temple-arch-frame" style={{ border: '2px solid var(--clr-gold-primary)', padding: '6px', borderRadius: '170px 170px 0 0', background: 'var(--clr-gold-bg)' }}>
                                     <div className="couple-image-wrapper" style={{ borderRadius: '164px 164px 0 0', overflow: 'hidden' }}>
-                                        <img src="https://i.pinimg.com/736x/28/f5/81/28f5813b36cd8a5e9c482bfc22ae8791.jpg" alt="Arjun" className="couple-photo" />
+                                        <img src="/groom.png" alt="Arjun" className="couple-photo" />
                                         <div className="couple-role-tag" style={{ background: 'var(--clr-maroon-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Groom</div>
                                     </div>
                                 </div>
@@ -667,7 +862,7 @@ function App() {
                             <div className="couple-card bride-card" id="bride-card">
                                 <div className="temple-arch-frame" style={{ border: '2px solid var(--clr-gold-primary)', padding: '6px', borderRadius: '170px 170px 0 0', background: 'var(--clr-gold-bg)' }}>
                                     <div className="couple-image-wrapper" style={{ borderRadius: '164px 164px 0 0', overflow: 'hidden' }}>
-                                        <img src="https://i.pinimg.com/736x/87/18/52/87185251f7584038db95c16c7d9d362d.jpg" alt="Priya" className="couple-photo" />
+                                        <img src="/bride.png" alt="Priya" className="couple-photo" />
                                         <div className="couple-role-tag" style={{ background: 'var(--clr-maroon-deep)', color: 'var(--clr-gold-light)', border: '1px solid var(--clr-gold-primary)' }}>The Bride</div>
                                     </div>
                                 </div>
@@ -915,8 +1110,8 @@ function App() {
                             marginTop: '40px'
                         }}>
                             {[
-                                { src: "https://i.pinimg.com/736x/28/f5/81/28f5813b36cd8a5e9c482bfc22ae8791.jpg", caption: "Arjun" },
-                                { src: "https://i.pinimg.com/736x/87/18/52/87185251f7584038db95c16c7d9d362d.jpg", caption: "Priya" },
+                                { src: "/groom.png", caption: "Arjun" },
+                                { src: "/bride.png", caption: "Priya" },
                                 { src: "/rituals.jpg", caption: "Rituals" },
                                 { src: "/celebration.jpg", caption: "Celebrations" }
                             ].map((photo, i) => (
@@ -945,6 +1140,7 @@ function App() {
                                             width: '100%',
                                             height: '100%',
                                             objectFit: 'cover',
+                                            objectPosition: 'top center',
                                             transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
                                         }} />
                                         <div className="gallery-overlay" style={{
@@ -1022,7 +1218,7 @@ function App() {
                 {/* Blessing & Hosts Section */}
                 <section id="blessing-section" className="blessing-section reveal-section temple-pattern-bg-light" style={{ padding: '80px 0' }}>
                     <div className="container small-container">
-                        <div className="blessing-card" style={{ border: '2px solid var(--clr-gold-primary)', background: 'var(--clr-maroon-medium)', color: 'var(--clr-light-text)', padding: '50px 30px', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-gold)', textAlign: 'center' }}>
+                        <div className="blessing-card" style={{ border: '2px solid var(--clr-gold-primary)', background: '#7D1427', color: 'var(--clr-light-text)', padding: '50px 30px', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-gold)', textAlign: 'center' }}>
                             <div style={{ marginBottom: '20px' }}>
                                 <Lotus style={{ fontSize: '2.5rem', color: 'var(--clr-gold-primary)' }} />
                             </div>
@@ -1051,9 +1247,8 @@ function App() {
                         </div>
                     </div>
                 </section>
-
                 {/* Footer */}
-                <footer className="app-footer" style={{ borderTop: '2px solid var(--clr-gold-primary)', background: 'var(--clr-maroon-deep)', position: 'relative', overflow: 'hidden' }}>
+                <footer className="app-footer" style={{ borderTop: '2px solid var(--clr-gold-primary)', background: '#6D0519', position: 'relative', overflow: 'hidden' }}>
                     <div className="footer-bg-glow"></div>
                     <div className="container" style={{ position: 'relative', zIndex: 1, padding: '50px 0 25px 0' }}>
                         <div className="footer-logo" style={{ fontFamily: 'var(--font-heading)', fontSize: '2rem', color: 'var(--clr-gold-primary)', letterSpacing: '2px' }}>A &bull; P</div>
